@@ -1,3 +1,5 @@
+import { GalleryImage } from "./GalleryImage";
+
 export default interface ModListType {
   project_id: string;
   project_type: string;
@@ -16,5 +18,5 @@ export default interface ModListType {
   latest_version: string;
   client_side: string;
   server_side: string;
-  gallery: string[];
+  gallery: GalleryImage[];
 }
