@@ -1,6 +1,11 @@
 import { Action, ActionPanel, List } from "@raycast/api";
 import ModListType from "../models/ModListType";
-import { modrinthIcons, modrinthColors, newlinePlaceholder } from "../utils/constants";
+import {
+  modrinthIcons,
+  modrinthColors,
+  newlinePlaceholder,
+  projectDropdown
+} from "../utils/constants";
 import { timeAgo } from "../utils/functions";
 import { NodeHtmlMarkdown } from "node-html-markdown";
 import { useState } from "react";
@@ -8,6 +13,7 @@ import { useFetch } from "@raycast/utils";
 import ModItemType from "../models/ModItemType";
 import { ListAPIResponse } from "../models/ListAPIResponse";
 import DetailView from "./DetailView";
+import ListViewDropdown from "./ListViewDropdown";
 
 export default function ListView() {
   const nhm = new NodeHtmlMarkdown();
@@ -45,6 +51,15 @@ export default function ListView() {
         setItemId(selection ? selection : "");
         revalidateItem();
       }}
+      searchBarAccessory={
+      <ListViewDropdown
+        onDropdownChange={(val) => console.log(val)}
+        title={"Project Types"}
+        dropdownChoiceTypes={projectDropdown}
+        tooltip={"Select project type..."}
+        defaultValue={"all-projects"}
+      />
+    }
     >
       <List.Section title={"Results"} subtitle={listData?.hits.length.toString()}>
         {listData?.hits?.map((item: ModListType) => (

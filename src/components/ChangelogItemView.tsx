@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Detail } from "@raycast/api";
+import { Action, ActionPanel, Detail, Icon } from "@raycast/api";
 import ModChangelogAPIResponse from "../models/ModChangelogAPIResponse";
 import { modrinthColors, modrinthIcons } from "../utils/constants";
 
@@ -10,14 +10,16 @@ interface ChangelogItemViewProps {
 export default function ChangelogItemView({data, slug}: ChangelogItemViewProps) {
   return (
     <Detail markdown={`# Changelog\n${data.changelog.length == 0 ? "No changelog specified." : data.changelog}`}
-            navigationTitle={`Details for Changelog ${data.name}`}
+            navigationTitle={`Details for ${data.name}`}
             actions={
               <ActionPanel>
                 <Action.OpenInBrowser url={`https://modrinth.com/mod/${slug}/version/${data.id}`} />
                 <Action.OpenInBrowser
                   title={"Download File"}
                   url={data.files.find((curr) => curr.primary)?.url
-                    ?? `https://modrinth.com/mod/${slug}/version/${data.id}`} />
+                    ?? `https://modrinth.com/mod/${slug}/version/${data.id}`}
+                  icon={Icon.Download}
+                />
               </ActionPanel>
             }
             metadata={

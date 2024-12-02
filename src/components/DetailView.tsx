@@ -18,7 +18,12 @@ export default function DetailView({ itemData, nhm }: DetailViewProps) {
       actions={
         <ActionPanel>
           <Action.OpenInBrowser url={`https://modrinth.com/mod/${itemData?.slug ?? ""}`} />
-          <Action.Push title={"View All Versions"} icon={Icon.BulletPoints} target={<ChangelogView slug={itemData?.slug ?? ""} />} />
+          <Action.Push
+            title={"View All Versions"}
+            icon={Icon.BulletPoints}
+            target={<ChangelogView slug={itemData?.slug ?? ""}
+                                   name={itemData?.title ?? ""}
+            />} />
         </ActionPanel>
       }
       markdown={
