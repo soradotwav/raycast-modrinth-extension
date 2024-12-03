@@ -1,6 +1,7 @@
-import { Action, ActionPanel, Detail, Icon } from "@raycast/api";
+import { Detail } from "@raycast/api";
 import ModChangelogAPIResponse from "../models/ModChangelogAPIResponse";
 import { modrinthColors } from "../utils/constants";
+import VersionInteractionMenu from "../components/VersionInteractionMenu";
 
 export default function VersionsDetailView(props: {
   data: ModChangelogAPIResponse;
@@ -11,17 +12,7 @@ export default function VersionsDetailView(props: {
       markdown={`# Changelog\n${props.data.changelog.length === 0 ? "No changelog specified." : props.data.changelog}`}
       navigationTitle={`Details for ${props.data.name}`}
       actions={
-        <ActionPanel>
-          <Action.OpenInBrowser
-            url={`https://modrinth.com/mod/${props.slug}/version/${props.data.id}`}
-          />
-          <Action.OpenInBrowser
-            title={"Download File"}
-            url={props.data.files.find((curr) => curr.primary)?.url
-              ?? `https://modrinth.com/mod/${props.slug}/version/${props.data.id}`}
-            icon={Icon.Download}
-          />
-        </ActionPanel>
+        <VersionInteractionMenu data={props.data} slug={props.slug} />
       }
       metadata={
         <Detail.Metadata>
@@ -51,6 +42,7 @@ export default function VersionsDetailView(props: {
               <Detail.Metadata.TagList.Item
                 text={curr}
                 key={curr}
+                color={modrinthColors.get("default")}
               />
             ))}
           />

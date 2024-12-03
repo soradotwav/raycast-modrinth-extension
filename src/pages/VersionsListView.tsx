@@ -1,11 +1,11 @@
-import { Action, ActionPanel, Icon, List } from "@raycast/api";
+import { List } from "@raycast/api";
 import { useFetch } from "@raycast/utils";
 import ModChangelogAPIResponse from "../models/ModChangelogAPIResponse";
 import { modloaderDropdown, vanillaDropdown } from "../utils/constants";
 import { timeAgo } from "../utils/functions";
-import VersionsDetailView from "./VersionsDetailView";
 import { useState } from "react";
 import ListDropdown from "../components/ListDropdown";
+import VersionInteractionMenu from "../components/VersionInteractionMenu";
 
 export default function VersionsListView(props: {
   slug: string;
@@ -61,22 +61,7 @@ export default function VersionsListView(props: {
             subtitle={`Released ${timeAgo(item.date_published)}`}
             icon={{source: `${item.loaders[0]}.svg`, tintColor: "raycast-secondary-text"}}
             actions={
-              <ActionPanel>
-                <Action.Push
-                  title={"View Details"}
-                  icon={Icon.Info}
-                  target={<VersionsDetailView data={item} slug={props.slug} />}
-                />
-                <Action.OpenInBrowser
-                  url={`https://modrinth.com/mod/${props.slug}/version/${item.id}`}
-                />
-                <Action.OpenInBrowser
-                  title={"Download File"}
-                  url={item.files.find((curr) => curr.primary)?.url
-                    ?? `https://modrinth.com/mod/${props.slug}/version/${item.id}`}
-                  icon={Icon.Download}
-                />
-              </ActionPanel>
+              <VersionInteractionMenu data={item} slug={props.slug} showDetails={true} />
             }
           />
         ))}

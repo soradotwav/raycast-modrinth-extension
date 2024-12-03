@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Icon, List } from "@raycast/api";
+import { List } from "@raycast/api";
 import SearchAPIResponseType from "../models/SearchAPIResponseType";
 import { modrinthColors, newlinePlaceholder, projectDropdown, } from "../utils/constants";
 import { timeAgo } from "../utils/functions";
@@ -9,6 +9,7 @@ import ProjectAPIResponseType from "../models/ProjectAPIResponseType";
 import { ListAPIResponse } from "../models/ListAPIResponse";
 import DetailView from "./DetailView";
 import ListDropdown from "../components/ListDropdown";
+import ProjectInteractionMenu from "../components/ProjectInteractionMenu";
 
 export default function SearchView() {
   const nhm = new NodeHtmlMarkdown();
@@ -78,16 +79,7 @@ export default function SearchView() {
             title={item.title}
             id={item.project_id}
             actions={
-              <ActionPanel>
-                <Action.Push
-                  title={"View Details"}
-                  icon={Icon.Info}
-                  target={<DetailView itemData={itemData ?? null} nhm={nhm} projectType={projectType} />}
-                />
-                <Action.OpenInBrowser
-                  url={`https://modrinth.com/${itemData?.project_type ?? ""}/${itemData?.slug ?? ""}`}
-                />
-              </ActionPanel>
+              <ProjectInteractionMenu itemData={itemData ?? null} projectType={projectType} detailsTarget={<DetailView itemData={itemData ?? null} nhm={nhm} projectType={projectType} />} />
             }
             detail={
               <List.Item.Detail

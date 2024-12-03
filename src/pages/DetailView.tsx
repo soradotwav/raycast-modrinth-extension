@@ -1,9 +1,9 @@
-import { Action, ActionPanel, Detail, Icon } from "@raycast/api";
+import { Detail } from "@raycast/api";
 import { modrinthColors, newlinePlaceholder } from "../utils/constants";
 import ProjectAPIResponseType from "../models/ProjectAPIResponseType";
 import { NodeHtmlMarkdown } from "node-html-markdown";
 import { formatMinecraftVersions } from "../utils/functions";
-import VersionsListView from "./VersionsListView";
+import ProjectInteractionMenu from "../components/ProjectInteractionMenu";
 
 export default function DetailView(props: { itemData: ProjectAPIResponseType | null, nhm: NodeHtmlMarkdown, projectType: string }) {
   return (
@@ -11,18 +11,8 @@ export default function DetailView(props: { itemData: ProjectAPIResponseType | n
       isLoading={props.itemData == null}
       navigationTitle={`Details for ${props.itemData?.title ?? "Undefined"}`}
       actions={
-        <ActionPanel>
-          <Action.OpenInBrowser url={`https://modrinth.com/${props.projectType}/${props.itemData?.slug ?? ""}`} />
-          <Action.Push
-            title={"View All Versions"}
-            icon={Icon.BulletPoints}
-            target={<VersionsListView slug={props.itemData?.slug ?? ""}
-                                      name={props.itemData?.title ?? ""}
-                                      loaders={props.itemData?.loaders ?? []}
-                                      showDropdown={props.itemData?.project_type != "resourcepack"}
-            />} />
-        </ActionPanel>
-      }
+        <ProjectInteractionMenu itemData={props.itemData} projectType={props.projectType} />
+       }
       markdown={
         !props.itemData || !props.itemData.body
           ? ""
