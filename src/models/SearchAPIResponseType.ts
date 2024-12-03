@@ -1,6 +1,4 @@
-import { GalleryImage } from "./GalleryImage";
-
-export default interface ModListType {
+export default interface SearchAPIResponseType {
   project_id: string;
   project_type: string;
   slug: string;
@@ -16,7 +14,9 @@ export default interface ModListType {
   date_created: string;
   date_modified: string;
   latest_version: string;
+  license: string;
   client_side: string;
   server_side: string;
-  gallery: GalleryImage[];
+  gallery: string[];
+  featured_gallery: string;
 }

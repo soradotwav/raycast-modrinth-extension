@@ -1,5 +1,5 @@
-import ModListType from "./ModListType";
+import SearchAPIResponseType from "./SearchAPIResponseType";
 
 export interface ListAPIResponse {
-  hits: ModListType[];
+  hits: SearchAPIResponseType[];
 }

@@ -5,35 +5,47 @@ export const modrinthColors: Map<string, string> = new Map([
   ["quilt", "#C696F9"],
   ["forge", "#959EEF"],
   ["neoforge", "#F99E6B"],
+  ["bukkit", "#F6AF7B"],
+  ["bungeecord", "#D2C080"],
+  ["folia", "#A5E388"],
+  ["paper", "#EEAAA9"],
+  ["purpur", "#C3ABF7"],
+  ["spigot", "#F1CC85"],
+  ["velocity", "#83D5EF"],
+  ["waterfall", "#78A4FB"],
+  ["sponge", "#F9E580"],
+  ["minecraft", '#66BB6A'],
   ["default", '#96A2B0']
 ])
 
-export const modrinthIcons: Map<string, string> = new Map([
-  ["fabric", "fabric_icon.svg"],
-  ["quilt", "quilt_icon.svg"],
-  ["forge", "forge_icon.svg"],
-  ["neoforge", "neoforge_icon.svg"],
-  ["client_side", "client_side_icon.svg"],
-  ["server_side", "server_side_icon.svg"],
-])
-
 export const modloaderDropdown: DropdownType[] = [
-  { name: "All Loaders", id: "all-loaders" },
   { name: "Fabric", id: "fabric" },
   { name: "Forge", id: "forge" },
   { name: "Neoforge", id: "neoforge" },
   { name: "Quilt", id: "quilt" },
 ];
 
-export const projectDropdown: DropdownType[] = [
-  { name: "All Projects", id: "all-projects" },
-  { name: "Data Packs", id: "data-packs" },
-  { name: "Mods", id: "mods" },
-  { name: "Modpacks", id: "modpacks" },
-  { name: "Plugins", id: "plugins" },
-  { name: "Resource Packs", id: "resource-packs" },
-  { name: "Shaders", id: "shaders" },
+export const vanillaDropdown: DropdownType[] = [
+  { name: "Bukkit", id: "bukkit" },
+  { name: "BungeeCord", id: "bungeecord" },
+  { name: "Datapacks", id: "datapack" },
+  { name: "Folia", id: "folia" },
+  { name: "Paper", id: "paper" },
+  { name: "Purpur", id: "purpur" },
+  { name: "Spigot", id: "spigot" },
+  { name: "Velocity", id: "velocity" },
+  { name: "Waterfall", id: "waterfall" },
+  { name: "Sponge", id: "sponge" }
 ];
 
+
+export const projectDropdown: DropdownType[] = [
+  { name: "Data Packs", id: "datapack" },
+  { name: "Mods", id: "mod" },
+  { name: "Modpacks", id: "modpack" },
+  { name: "Plugins", id: "plugin" },
+  { name: "Resource Packs", id: "resourcepack" },
+  { name: "Shaders", id: "shader" },
+];
 
 export const newlinePlaceholder= "!NEWLINEPLACEHOLDER!"

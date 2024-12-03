@@ -1,7 +1,7 @@
-import ListView from "./components/ListView";
+import SearchView from "./pages/SearchView";
 
 export default function Command() {
   return (
-    <ListView />
+    <SearchView />
   );
 }

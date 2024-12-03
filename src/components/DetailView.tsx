@@ -1,42 +1,39 @@
 import { Action, ActionPanel, Detail, Icon } from "@raycast/api";
-import { modrinthIcons, modrinthColors, newlinePlaceholder } from "../utils/constants";
-import ModItemType from "../models/ModItemType";
+import { modrinthColors, newlinePlaceholder } from "../utils/constants";
+import ProjectAPIResponseType from "../models/ProjectAPIResponseType";
 import { NodeHtmlMarkdown } from "node-html-markdown";
 import { formatMinecraftVersions } from "../utils/functions";
-import ChangelogView from "./ChangelogView";
+import VersionsListView from "../pages/VersionsListView";
 
-interface DetailViewProps {
-  itemData: ModItemType | null;
-  nhm: NodeHtmlMarkdown;
-}
-
-export default function DetailView({ itemData, nhm }: DetailViewProps) {
+export default function DetailView(props: { itemData: ProjectAPIResponseType | null, nhm: NodeHtmlMarkdown, projectType: string }) {
   return (
     <Detail
-      isLoading={itemData == null}
-      navigationTitle={`Details for ${itemData?.title ?? "Current Mod"}`}
+      isLoading={props.itemData == null}
+      navigationTitle={`Details for ${props.itemData?.title ?? "Undefined"}`}
       actions={
         <ActionPanel>
-          <Action.OpenInBrowser url={`https://modrinth.com/mod/${itemData?.slug ?? ""}`} />
+          <Action.OpenInBrowser url={`https://modrinth.com/${props.projectType}/${props.itemData?.slug ?? ""}`} />
           <Action.Push
             title={"View All Versions"}
             icon={Icon.BulletPoints}
-            target={<ChangelogView slug={itemData?.slug ?? ""}
-                                   name={itemData?.title ?? ""}
+            target={<VersionsListView slug={props.itemData?.slug ?? ""}
+                                      name={props.itemData?.title ?? ""}
+                                      loaders={props.itemData?.loaders ?? []}
+                                      showDropdown={props.itemData?.project_type != "resourcepack"}
             />} />
         </ActionPanel>
       }
       markdown={
-        !itemData || !itemData.body
+        !props.itemData || !props.itemData.body
           ? ""
-          : nhm
-              .translate(itemData!.body.replaceAll("\n", newlinePlaceholder))
+          : props.nhm
+              .translate(props.itemData!.body.replaceAll("\n", newlinePlaceholder))
               .replaceAll(newlinePlaceholder, "\n")
               .replace(/\\/g, "")
       }
       metadata={
         <Detail.Metadata>
-          <Detail.Metadata.TagList title={"Compatible Versions"} children={formatMinecraftVersions(itemData?.game_versions ?? []).map((curr) => {
+          <Detail.Metadata.TagList title={"Compatible Versions"} children={formatMinecraftVersions(props.itemData?.game_versions ?? []).map((curr) => {
             return (
               <Detail.Metadata.TagList.Item
                 text={curr}
@@ -47,42 +44,41 @@ export default function DetailView({ itemData, nhm }: DetailViewProps) {
           })}/>
           <Detail.Metadata.TagList
             title={"Platforms"}
-            children={itemData?.loaders
-              .filter((curr) => Array.from(modrinthColors.keys()).includes(curr))
+            children={props.itemData?.loaders
               .map((curr) => {
                 return (
                   <Detail.Metadata.TagList.Item
                     text={curr.charAt(0).toUpperCase() + curr.slice(1)}
-                    color={modrinthColors.get(curr)}
+                    color={modrinthColors.get(curr) ?? modrinthColors.get("default")}
                     key={curr}
-                    icon={{ source: modrinthIcons.get(curr) as string, tintColor: modrinthColors.get(curr) }}
+                    icon={{ source: `${curr}.svg`, tintColor: modrinthColors.get(curr) ?? modrinthColors.get("default") }}
                   />
                 );
               })}
           />
           <Detail.Metadata.TagList title="Supported Environments">
-            {itemData?.client_side !== "unsupported" && itemData?.client_side !== "unknown" && (
+            {props.itemData?.client_side !== "unsupported" && props.itemData?.client_side !== "unknown" && (
               <Detail.Metadata.TagList.Item
                 text="Client-side"
-                icon={{ source: "client_side_icon.svg", tintColor: modrinthColors.get("default") }}
+                icon={{ source: "client_side.svg", tintColor: modrinthColors.get("default") }}
                 color={modrinthColors.get("default")}
               />
             )}
-            {itemData?.server_side !== "unsupported" && itemData?.client_side !== "unknown" && (
+            {props.itemData?.server_side !== "unsupported" && props.itemData?.client_side !== "unknown" && (
               <Detail.Metadata.TagList.Item
                 text="Server-side"
-                icon={{ source: "server_side_icon.svg", tintColor: modrinthColors.get("default") }}
+                icon={{ source: "server_side.svg", tintColor: modrinthColors.get("default") }}
                 color={modrinthColors.get("default")}
               />
             )}
           </Detail.Metadata.TagList>
           <Detail.Metadata.Separator />
-          <Detail.Metadata.Label title={"Downloads"} text={(itemData?.downloads ?? -1).toLocaleString()} />
-          <Detail.Metadata.Label title={"Followers"} text={(itemData?.followers ?? -1).toLocaleString()} />
+          <Detail.Metadata.Label title={"Downloads"} text={(props.itemData?.downloads ?? -1).toLocaleString()} />
+          <Detail.Metadata.Label title={"Followers"} text={(props.itemData?.followers ?? -1).toLocaleString()} />
           <Detail.Metadata.Separator />
-          <Detail.Metadata.Link title={""} text={"Report Issues"} target={itemData?.issues_url ?? ""} />
-          <Detail.Metadata.Link title={""} text={"View Source"} target={itemData?.source_url ?? ""} />
-          <Detail.Metadata.Link title={""} text={"Join the Discord Server"} target={itemData?.discord_url ?? ""} />
+          <Detail.Metadata.Link title={""} text={"Report Issues"} target={props.itemData?.issues_url ?? ""} />
+          <Detail.Metadata.Link title={""} text={"View Source"} target={props.itemData?.source_url ?? ""} />
+          <Detail.Metadata.Link title={""} text={"Join the Discord Server"} target={props.itemData?.discord_url ?? ""} />
         </Detail.Metadata>
       }
     />
