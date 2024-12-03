@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useFetch } from "@raycast/utils";
 import ProjectAPIResponseType from "../models/ProjectAPIResponseType";
 import { ListAPIResponse } from "../models/ListAPIResponse";
-import DetailView from "../components/DetailView";
+import DetailView from "./DetailView";
 import ListDropdown from "../components/ListDropdown";
 
 export default function SearchView() {

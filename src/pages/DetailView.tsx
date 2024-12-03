@@ -3,7 +3,7 @@ import { modrinthColors, newlinePlaceholder } from "../utils/constants";
 import ProjectAPIResponseType from "../models/ProjectAPIResponseType";
 import { NodeHtmlMarkdown } from "node-html-markdown";
 import { formatMinecraftVersions } from "../utils/functions";
-import VersionsListView from "../pages/VersionsListView";
+import VersionsListView from "./VersionsListView";
 
 export default function DetailView(props: { itemData: ProjectAPIResponseType | null, nhm: NodeHtmlMarkdown, projectType: string }) {
   return (
