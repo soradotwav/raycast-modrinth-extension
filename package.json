@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "modrinth-search",
+  "name": "modrinth",
   "title": "Modrinth",
   "description": "Your Minecraft modding companion - find mods, resource packs, and more",
   "icon": "modrinth-logo.png",
