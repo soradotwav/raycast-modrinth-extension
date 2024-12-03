@@ -14,9 +14,9 @@ export const modrinthColors: Map<string, string> = new Map([
   ["velocity", "#83D5EF"],
   ["waterfall", "#78A4FB"],
   ["sponge", "#F9E580"],
-  ["minecraft", '#66BB6A'],
-  ["default", '#96A2B0']
-])
+  ["minecraft", "#66BB6A"],
+  ["default", "#96A2B0"],
+]);
 
 export const modloaderDropdown: DropdownType[] = [
   { name: "Fabric", id: "fabric" },
@@ -35,9 +35,8 @@ export const vanillaDropdown: DropdownType[] = [
   { name: "Spigot", id: "spigot" },
   { name: "Velocity", id: "velocity" },
   { name: "Waterfall", id: "waterfall" },
-  { name: "Sponge", id: "sponge" }
+  { name: "Sponge", id: "sponge" },
 ];
-
 
 export const projectDropdown: DropdownType[] = [
   { name: "Data Packs", id: "datapack" },
@@ -48,4 +47,4 @@ export const projectDropdown: DropdownType[] = [
   { name: "Shaders", id: "shader" },
 ];
 
-export const newlinePlaceholder= "!NEWLINEPLACEHOLDER!"
+export const newlinePlaceholder = "!NEWLINEPLACEHOLDER!";

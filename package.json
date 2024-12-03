@@ -1,20 +1,20 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "modrinth-search",
-  "title": "Modrinth Search",
-  "description": "Interface with Modrinth straight through Raycast",
-  "icon": "modrinth_logo.png",
+  "title": "Modrinth",
+  "description": "Your Minecraft modding companion - find mods, resource packs, and more",
+  "icon": "modrinth-logo.png",
   "author": "soradotwav",
   "categories": [
-    "Fun",
-    "Other"
+    "Applications",
+    "Developer Tools"
   ],
   "license": "MIT",
   "commands": [
     {
       "name": "search",
-      "title": "Search on Modrinth",
-      "description": "Searches on modrinth",
+      "title": "Browse Modrinth",
+      "description": "Find and download Minecraft mods, resource packs, and plugins from Modrinth",
       "mode": "view"
     }
   ],

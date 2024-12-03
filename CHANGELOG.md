@@ -1,3 +1,5 @@
 # Modrinth Search Changelog
 
-## [Initial Version] - {PR_MERGE_DATE}
+## [Added Modrinth] - {PR_MERGE_DATE}
+
+Initial version code

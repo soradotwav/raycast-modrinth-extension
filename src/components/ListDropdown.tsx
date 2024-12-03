@@ -19,21 +19,19 @@ export default function ListDropdown(props: {
       defaultValue={props.defaultValue}
       storeValue={props.storeValue ?? false}
     >
-      {(props.showAll) ?
+      {props.showAll ? (
         <List.Dropdown.Section>
           <List.Dropdown.Item key={"all"} title={"Show All"} value={"all-loaders"} />
-        </List.Dropdown.Section> : <></>
-      }
+        </List.Dropdown.Section>
+      ) : (
+        <></>
+      )}
       <List.Dropdown.Section title={props.title}>
         {props.dropdownChoiceTypes.map((choiceType) => (
-          <List.Dropdown.Item
-            key={choiceType.id}
-            value={choiceType.id}
-            title={choiceType.name}
-          />
+          <List.Dropdown.Item key={choiceType.id} value={choiceType.id} title={choiceType.name} />
         ))}
       </List.Dropdown.Section>
-      {props.customSection ?? (<></>)}
+      {props.customSection ?? <></>}
     </List.Dropdown>
   );
 }

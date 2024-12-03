@@ -1,6 +1,6 @@
 import { List } from "@raycast/api";
 import SearchAPIResponseType from "../models/SearchAPIResponseType";
-import { modrinthColors, newlinePlaceholder, projectDropdown, } from "../utils/constants";
+import { modrinthColors, newlinePlaceholder, projectDropdown } from "../utils/constants";
 import { timeAgo } from "../utils/functions";
 import { NodeHtmlMarkdown } from "node-html-markdown";
 import { useState } from "react";
@@ -26,19 +26,15 @@ export default function SearchView() {
   const {
     data: listData,
     isLoading: listDataIsLoading,
-    revalidate: revalidateList
-  } = useFetch<ListAPIResponse>(
-    `https://api.modrinth.com/v2/search?${listDataSearchParams}`,
-  );
+    revalidate: revalidateList,
+  } = useFetch<ListAPIResponse>(`https://api.modrinth.com/v2/search?${listDataSearchParams}`);
 
   const {
     data: itemData,
     isLoading: itemDataIsLoading,
     error: itemDataError,
-    revalidate: revalidateItem
-  } = useFetch<ProjectAPIResponseType>(
-    `https://api.modrinth.com/v2/project/${itemId}`
-  );
+    revalidate: revalidateItem,
+  } = useFetch<ProjectAPIResponseType>(`https://api.modrinth.com/v2/project/${itemId}`);
 
   return (
     <List
@@ -67,10 +63,7 @@ export default function SearchView() {
         />
       }
     >
-      <List.Section
-        title={"Results"}
-        subtitle={listData?.hits.length.toString()}
-      >
+      <List.Section title={"Results"} subtitle={listData?.hits.length.toString()}>
         {listData?.hits?.map((item: SearchAPIResponseType) => (
           <List.Item
             key={item.project_id}
@@ -79,7 +72,11 @@ export default function SearchView() {
             title={item.title}
             id={item.project_id}
             actions={
-              <ProjectInteractionMenu itemData={itemData ?? null} projectType={projectType} detailsTarget={<DetailView itemData={itemData ?? null} nhm={nhm} projectType={projectType} />} />
+              <ProjectInteractionMenu
+                itemData={itemData ?? null}
+                projectType={projectType}
+                detailsTarget={<DetailView itemData={itemData ?? null} nhm={nhm} projectType={projectType} />}
+              />
             }
             detail={
               <List.Item.Detail
@@ -88,9 +85,9 @@ export default function SearchView() {
                   itemDataIsLoading || itemDataError || !itemData || !itemData.body
                     ? ""
                     : nhm
-                      .translate(itemData?.body.replaceAll("\n", newlinePlaceholder) ?? "")
-                      .replaceAll(newlinePlaceholder, "\n")
-                      .replace(/\\/g, "")
+                        .translate(itemData?.body.replaceAll("\n", newlinePlaceholder) ?? "")
+                        .replaceAll(newlinePlaceholder, "\n")
+                        .replace(/\\/g, "")
                 }
                 metadata={
                   <List.Item.Detail.Metadata>
@@ -99,33 +96,23 @@ export default function SearchView() {
                       text={item.author}
                       target={`https://modrinth.com/user/${item.author}`}
                     />
-                    <List.Item.Detail.Metadata.Label
-                      title={"Description"}
-                      text={item.description}
-                    />
-                    <List.Item.Detail.Metadata.Label
-                      title={"Downloads"}
-                      text={item.downloads.toLocaleString()}
-                    />
-                    <List.Item.Detail.Metadata.Label
-                      title={"Last Updated"}
-                      text={timeAgo(item.date_modified)}
-                    />
+                    <List.Item.Detail.Metadata.Label title={"Description"} text={item.description} />
+                    <List.Item.Detail.Metadata.Label title={"Downloads"} text={item.downloads.toLocaleString()} />
+                    <List.Item.Detail.Metadata.Label title={"Last Updated"} text={timeAgo(item.date_modified)} />
                     <List.Item.Detail.Metadata.Separator />
                     <List.Item.Detail.Metadata.TagList
                       title={"Platforms"}
-                      children={itemData?.loaders
-                        .map((curr) => (
-                          <List.Item.Detail.Metadata.TagList.Item
-                            text={curr.charAt(0).toUpperCase() + curr.slice(1)}
-                            color={modrinthColors.get(curr) ?? modrinthColors.get("default")}
-                            key={curr}
-                            icon={{
-                              source: `${curr}.svg`,
-                              tintColor: modrinthColors.get(curr) ?? modrinthColors.get("default"),
-                            }}
-                          />
-                        ))}
+                      children={itemData?.loaders.map((curr) => (
+                        <List.Item.Detail.Metadata.TagList.Item
+                          text={curr.charAt(0).toUpperCase() + curr.slice(1)}
+                          color={modrinthColors.get(curr) ?? modrinthColors.get("default")}
+                          key={curr}
+                          icon={{
+                            source: `${curr}.svg`,
+                            tintColor: modrinthColors.get(curr) ?? modrinthColors.get("default"),
+                          }}
+                        />
+                      ))}
                     />
                   </List.Item.Detail.Metadata>
                 }
